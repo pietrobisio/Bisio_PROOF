@@ -78,6 +78,7 @@ void anaSelector::SlaveBegin(TTree * /*tree*/)
    h_miss_A = new TH1D("h_miss_A","h_miss_A",300,bmin,bmax);
    h_miss_C = new TH1D("h_miss_C","h_miss_C",300,bmin,bmax);
    
+   /*
    h_piEmax = new TH1D("h_piEmax","h_piEmax",300,bmin,bmax);
    h_muEmax = new TH1D("h_muEmax","h_muEmax",300,bmin,bmax);
    h_eEmax = new TH1D("h_eEmax","h_eEmax",300,bmin,bmax);
@@ -92,7 +93,7 @@ void anaSelector::SlaveBegin(TTree * /*tree*/)
    h_gammaN = new TH1D("h_gammaN","h_gammaN",300,-0.5,300);
    h_nuN = new TH1D("h_nuN","h_nuN",300,-0.5,300);
    h_NN = new TH1D("h_NN","h_NN",300,-0.5,300);
-   h_PN = new TH1D("h_PN","h_PN",300,-0.5,300);
+   h_PN = new TH1D("h_PN","h_PN",300,-0.5,300);*/
 
    h2_Emiss_Eex = new TH2D("h2_Emiss_Eex","h2_Emiss_Eex",300,bmin,bmax,300,bmin,bmax);
    h2_E_Theta_muon = new TH2D("h2_E_Theta_muon","h2_E_Theta_muon",300,bmin,bmax,200,0,180);
@@ -146,8 +147,8 @@ Bool_t anaSelector::Process(Long64_t entry)
   double Emiss = 0;
   double Emiss_part = 0;
   
-  for(int i=0;i<(totEdep->size()); i++){
-    EDEP =  EDEP +  (*totEdep)[i];
+  for(int j=0;j<(totEdep->size()); j++){
+    EDEP =  EDEP +  (*totEdep)[j];
   }
   Emiss = sqrt(((*gen_pz)[0])*(*gen_pz)[0] + 0.510999*0.510999) - EDEP;
   h_miss_A->Fill(Emiss);
@@ -172,7 +173,6 @@ Bool_t anaSelector::Process(Long64_t entry)
 
  
   if(Emiss>2000){
-    
     Emiss_part = 0;
     h_miss_C->Fill(Emiss);
     
@@ -186,8 +186,8 @@ Bool_t anaSelector::Process(Long64_t entry)
       //double fy = (*avg_y)[i];
       double fz = (*avg_z)[i];
       int pID = (*pid)[i];
-      
-	  
+
+  	  
       //check if particle is exiting the detector //	  
       int check_ext =0 ;
       if(ID==101 && fpz<0) check_ext =1; // front
@@ -202,7 +202,7 @@ Bool_t anaSelector::Process(Long64_t entry)
 	Ek = Et - m(pID); 
 	Theta  = 180./3.1416*acos(fpz/sqrt(fpx*fpx + fpy*fpy + fpz*fpz));
 	
-	if(abs(pID) == 11) { e_count ++; }
+	if(abs(pID) == 11) { e_count++; }
 	if(abs(pID) == 22) { gamma_count++; }
 	if(abs(pID) == 211){ pi_count++; }
 	if(pID == 2112) { N_count++; }
@@ -230,13 +230,15 @@ Bool_t anaSelector::Process(Long64_t entry)
     h2_E_Theta_muon_Max -> Fill(E_Max,Theta_Max);
     h2_Emiss_Eex->Fill(Emiss,Emiss_part);
    
-    h_eN -> Fill(e_count);
-    h_muN -> Fill(mu_count);
-    h_nuN -> Fill(nu_count);
-    h_gammaN -> Fill(gamma_count);
-    h_piN -> Fill(pi_count);
-    h_NN -> Fill(N_count);
-    h_PN -> Fill(P_count);
+    //cout<<mu_count<<endl;
+    // h_eN -> Fill(e_count);
+    //h_eN -> Fill(10);
+    //h_muN -> Fill(13);
+    //h_nuN -> Fill(nu_count);
+    //h_gammaN -> Fill(gamma_count);
+    //h_piN -> Fill(12);
+    //h_NN -> Fill(N_count);
+    //h_PN -> Fill(P_count);
     
   }//chiusura loop su eventi selezionati
 
