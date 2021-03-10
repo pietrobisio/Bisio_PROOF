@@ -51,7 +51,6 @@ double m(double pid){
 
 
 
-
 void anaSelector::Begin(TTree * /*tree*/)
 {
    // The Begin() function is called at the start of the query.
@@ -75,11 +74,29 @@ void anaSelector::SlaveBegin(TTree * /*tree*/)
    
    int bmin = 0;
    int bmax = 11000;
+   
    h_miss_A = new TH1D("h_miss_A","h_miss_A",300,bmin,bmax);
    h_miss_C = new TH1D("h_miss_C","h_miss_C",300,bmin,bmax);
+   
+   h_piEmax = new TH1D("h_piEmax","h_piEmax",300,bmin,bmax);
+   h_muEmax = new TH1D("h_muEmax","h_muEmax",300,bmin,bmax);
+   h_eEmax = new TH1D("h_eEmax","h_eEmax",300,bmin,bmax);
+   h_gammaEmax = new TH1D("h_gammaEmax","h_gammaEmax",300,bmin,bmax);
+   h_nuEmax = new TH1D("h_nuEmax","h_nuEmax",300,bmin,bmax);
+   h_NEmax = new TH1D("h_NEmax","h_NEmax",300,bmin,bmax);
+   h_PEmax = new TH1D("h_PEmax","h_PEmax",300,bmin,bmax);
+  
+   h_piN = new TH1D("h_piN","h_piN",300,-0.5,300);
    h_muN = new TH1D("h_muN","h_muN",300,-0.5,300);
+   h_eN = new TH1D("h_eN","h_eN",300,-0.5,300);
+   h_gammaN = new TH1D("h_gammaN","h_gammaN",300,-0.5,300);
    h_nuN = new TH1D("h_nuN","h_nuN",300,-0.5,300);
+   h_NN = new TH1D("h_NN","h_NN",300,-0.5,300);
+   h_PN = new TH1D("h_PN","h_PN",300,-0.5,300);
+
+   h2_Emiss_Eex = new TH2D("h2_Emiss_Eex","h2_Emiss_Eex",300,bmin,bmax,300,bmin,bmax);
    h2_E_Theta_muon = new TH2D("h2_E_Theta_muon","h2_E_Theta_muon",300,bmin,bmax,200,0,180);
+   h2_z_Theta_muon = new TH2D("h2_z_Theta_muon","h2_z_Theta_muon",400,-200,200,200,0,180);
    h2_E_Theta_muon_Max = new TH2D("h2_E_Theta_muon_Max","h2_E_Theta_muon_Max",300,bmin,bmax,200,0,180);
 
 
@@ -127,6 +144,7 @@ Bool_t anaSelector::Process(Long64_t entry)
 
   double EDEP = 0;
   double Emiss = 0;
+  double Emiss_part = 0;
   
   for(int i=0;i<(totEdep->size()); i++){
     EDEP =  EDEP +  (*totEdep)[i];
@@ -136,17 +154,23 @@ Bool_t anaSelector::Process(Long64_t entry)
   
 
   // High Energy loss Analysis //
-  double Emiss_part = 0;
+  int e_count = 0;
   int mu_count = 0;
   int nu_count = 0;
-  //int others_count =0;
-      
+  int gamma_count =0;
+  int pi_count = 0;
+  int N_count = 0;
+  int P_count = 0;
+  int others_count =0;
+    
+  double Et = 0;
+  double Ek =0;
+  double Theta  = 0;
+  //double pid_Max = 0;
   double E_Max = 0;
   double Theta_Max = 0;
-  //double exit_x,exit_y,exit_z;
-  double ThetaMu  = 0;
-  double EnergyMu = 0;
-  
+
+ 
   if(Emiss>2000){
     
     Emiss_part = 0;
@@ -158,12 +182,11 @@ Bool_t anaSelector::Process(Long64_t entry)
       double fpx = (*px)[i];
       double fpy = (*py)[i];
       double fpz = (*pz)[i];
-      //double fx = (avg_x*)[i];
-      //double fy = (avg_y*)[i];
-      //double fz = (avg_z*)[i];
+      // double fx = (*avg_x)[i];
+      //double fy = (*avg_y)[i];
+      double fz = (*avg_z)[i];
       int pID = (*pid)[i];
-
-   
+      
 	  
       //check if particle is exiting the detector //	  
       int check_ext =0 ;
@@ -173,31 +196,47 @@ Bool_t anaSelector::Process(Long64_t entry)
       if(ID==104 && fpx<0) check_ext =1; // right
       if(ID==105 && fpy<0) check_ext =1; // bottom
       if(ID==106 && fpz>0) check_ext =1; // back	  
+      
       if(check_ext==1){
+	Et = sqrt( fpx*fpx + fpy*fpy + fpz*fpz + m(pID)*m(pID));
+	Ek = Et - m(pID); 
+	Theta  = 180./3.1416*acos(fpz/sqrt(fpx*fpx + fpy*fpy + fpz*fpz));
 	
+	if(abs(pID) == 11) { e_count ++; }
+	if(abs(pID) == 22) { gamma_count++; }
+	if(abs(pID) == 211){ pi_count++; }
+	if(pID == 2112) { N_count++; }
+	if(pID == 2212) { P_count++; }
 	if(abs(pID) == 13) { 
-	  mu_count++; 
-	  ThetaMu  = 180./3.1416*acos(fpz/sqrt(fpx*fpx + fpy*fpy + fpz*fpz));
-	  EnergyMu = sqrt( fpx*fpx + fpy*fpy + fpz*fpz + m(pID)*m(pID));
-	  h2_E_Theta_muon -> Fill(EnergyMu,ThetaMu);
+	  mu_count++;
+	  h2_E_Theta_muon -> Fill(Et,Theta);
+	  h2_z_Theta_muon -> Fill(fz,Theta);
 	  
-	  if(EnergyMu > E_Max){ //searching max energy exiting muon
-	    E_Max = EnergyMu;
-	    Theta_Max = ThetaMu; 
-	    //exit_x =  fx;
-	    //exit_y =  fy;
-	    //exit_z =  fz;
+	  if(Et > E_Max){ //searching max energy exiting muon
+	    E_Max = Et;
+	    Theta_Max = Theta; 
 	  }
 	}
-	
 	if(abs(pID) == 14 || abs(pID) == 12)  { nu_count++; }
-	
+	if(abs(pID)!=11 && abs(pID)!=12  && abs(pID)!=13  && abs(pID)!=14  && abs(pID)!=22 && abs(pID)!=211 && pID!=2112 && pID!=2212){
+	  others_count++;
+	  cout << "New exiting particle: " << pID << endl;
+	}
+
+	Emiss_part = Emiss_part + Ek;
       }//chiusura if particella uscente
     }//chiusura loop su hit nel flux
     
     h2_E_Theta_muon_Max -> Fill(E_Max,Theta_Max);
+    h2_Emiss_Eex->Fill(Emiss,Emiss_part);
+   
+    h_eN -> Fill(e_count);
     h_muN -> Fill(mu_count);
     h_nuN -> Fill(nu_count);
+    h_gammaN -> Fill(gamma_count);
+    h_piN -> Fill(pi_count);
+    h_NN -> Fill(N_count);
+    h_PN -> Fill(P_count);
     
   }//chiusura loop su eventi selezionati
 

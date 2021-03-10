@@ -68,13 +68,30 @@ public :
   //histos
   TH1D *hGen_E;
 
-  TH1D *h_miss_A ;
-  TH1D *h_miss_C ;
-  TH1D *h_muN;
-  TH1D *h_nuN;
-  TH2D *h2_E_Theta_muon;
-  TH2D *h2_E_Theta_muon_Max;
+  TH1D *h_miss_A;
+  TH1D *h_miss_C;
+  
+  TH1D *h_piEmax;
+  TH1D *h_muEmax;
+  TH1D *h_eEmax;
+  TH1D *h_gammaEmax;
+  TH1D *h_nuEmax;
+  TH1D *h_NEmax;
+  TH1D *h_PEmax;
 
+  TH1D *h_piN;
+  TH1D *h_muN;
+  TH1D *h_eN;
+  TH1D *h_gammaN;
+  TH1D *h_nuN;
+  TH1D *h_NN;
+  TH1D *h_PN;
+
+  TH2D *h2_Emiss_Eex;
+  TH2D *h2_E_Theta_muon;
+  TH2D *h2_z_Theta_muon;
+  TH2D *h2_E_Theta_muon_Max;
+ 
   double m_EOT;
 
 
@@ -114,14 +131,30 @@ public :
 
     //histos
     hGen_E=0;
+    
     h_miss_A=0;
     h_miss_C=0;
+   
+    h_piEmax=0;
+    h_muEmax=0;
+    h_eEmax=0;
+    h_gammaEmax=0;
+    h_nuEmax=0;
+    h_NEmax=0;
+    h_PEmax=0;
+
+    h_piN=0;
     h_muN=0;
+    h_eN=0;
+    h_gammaN=0;
     h_nuN=0;
+    h_NN=0;
+    h_PN=0;
+
+    h2_Emiss_Eex=0;
     h2_E_Theta_muon=0;
+    h2_z_Theta_muon=0;
     h2_E_Theta_muon_Max=0;
-
-
 
   }
    virtual ~anaSelector() { }
