@@ -70,15 +70,8 @@ public :
 
   TH1D *h_miss_A;
   TH1D *h_miss_C;
+  TH1D *h_miss_T;
   
-  TH1D *h_piEmax;
-  TH1D *h_muEmax;
-  TH1D *h_eEmax;
-  TH1D *h_gammaEmax;
-  TH1D *h_nuEmax;
-  TH1D *h_NEmax;
-  TH1D *h_PEmax;
-
   TH1D *h_piN;
   TH1D *h_muN;
   TH1D *h_eN;
@@ -87,6 +80,22 @@ public :
   TH1D *h_NN;
   TH1D *h_PN;
 
+  TH1D *h_piME;
+  TH1D *h_muME;
+  TH1D *h_eME;
+  TH1D *h_gammaME;
+  TH1D *h_nuME;
+  TH1D *h_NME;
+  TH1D *h_PME;
+  
+  TH1D *h_piEmax;
+  TH1D *h_muEmax;
+  TH1D *h_eEmax;
+  TH1D *h_gammaEmax;
+  TH1D *h_nuEmax;
+  TH1D *h_NEmax;
+  TH1D *h_PEmax;
+  
   TH2D *h2_Emiss_Eex;
   TH2D *h2_E_Theta_muon;
   TH2D *h2_z_Theta_muon;
@@ -94,6 +103,9 @@ public :
  
   double m_EOT;
 
+  TTree *Tout;
+  int t_runNo, t_evn;
+  string t_string;
 
   anaSelector(TTree * /*tree*/ =0) { 
  
@@ -134,7 +146,24 @@ public :
     
     h_miss_A=0;
     h_miss_C=0;
+    h_miss_T=0;
    
+    h_piN=0;
+    h_muN=0;
+    h_eN=0;
+    h_gammaN=0;
+    h_nuN=0;
+    h_NN=0;
+    h_PN=0;
+    
+    h_piME=0;
+    h_muME=0;
+    h_eME=0;
+    h_gammaME=0;
+    h_nuME=0;
+    h_NME=0;
+    h_PME=0;
+
     h_piEmax=0;
     h_muEmax=0;
     h_eEmax=0;
@@ -143,18 +172,12 @@ public :
     h_NEmax=0;
     h_PEmax=0;
 
-    h_piN=0;
-    h_muN=0;
-    h_eN=0;
-    h_gammaN=0;
-    h_nuN=0;
-    h_NN=0;
-    h_PN=0;
-
     h2_Emiss_Eex=0;
     h2_E_Theta_muon=0;
     h2_z_Theta_muon=0;
     h2_E_Theta_muon_Max=0;
+
+    Tout=0;
 
   }
    virtual ~anaSelector() { }
