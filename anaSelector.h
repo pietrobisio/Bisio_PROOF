@@ -88,19 +88,19 @@ public :
   TH1D *h_NME;
   TH1D *h_PME;
   
-  TH1D *h_piEmax;
-  TH1D *h_muEmax;
-  TH1D *h_eEmax;
-  TH1D *h_gammaEmax;
-  TH1D *h_nuEmax;
-  TH1D *h_NEmax;
-  TH1D *h_PEmax;
+  TH2D *h2_E_Theta_pi_Max;
+  TH2D *h2_E_Theta_mu_Max;
+  TH2D *h2_E_Theta_e_Max;
+  TH2D *h2_E_Theta_gamma_Max;
+  TH2D *h2_E_Theta_nu_Max;
+  TH2D *h2_E_Theta_N_Max;
+  TH2D *h2_E_Theta_P_Max; 
   
   TH2D *h2_Emiss_Eex;
   TH2D *h2_E_Theta_muon;
   TH2D *h2_z_Theta_muon;
-  TH2D *h2_E_Theta_muon_Max;
- 
+  TH2D *h2_ExitingP;
+  
   double m_EOT;
 
   TTree *Tout;
@@ -164,18 +164,18 @@ public :
     h_NME=0;
     h_PME=0;
 
-    h_piEmax=0;
-    h_muEmax=0;
-    h_eEmax=0;
-    h_gammaEmax=0;
-    h_nuEmax=0;
-    h_NEmax=0;
-    h_PEmax=0;
+    h2_E_Theta_pi_Max=0;
+    h2_E_Theta_mu_Max=0;
+    h2_E_Theta_e_Max=0;
+    h2_E_Theta_gamma_Max=0;
+    h2_E_Theta_nu_Max=0;
+    h2_E_Theta_N_Max=0;
+    h2_E_Theta_P_Max=0; 
 
     h2_Emiss_Eex=0;
     h2_E_Theta_muon=0;
     h2_z_Theta_muon=0;
-    h2_E_Theta_muon_Max=0;
+    h2_ExitingP=0;
 
     Tout=0;
 
