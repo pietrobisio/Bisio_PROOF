@@ -71,6 +71,9 @@ public :
   TH1D *h_miss_A;
   TH1D *h_miss_C;
   TH1D *h_miss_T;
+  TH1D *h_miss_NO_mu;
+  TH1D *h_miss_EM;
+  
   
   TH1D *h_piN;
   TH1D *h_muN;
@@ -95,10 +98,12 @@ public :
   TH2D *h2_E_Theta_nu_Max;
   TH2D *h2_E_Theta_N_Max;
   TH2D *h2_E_Theta_P_Max; 
+
+  TH2D *h2_E_z_muon_Max;
+  TH2D *h2_z_Theta_muon_Max;
   
   TH2D *h2_Emiss_Eex;
   TH2D *h2_E_Theta_muon;
-  TH2D *h2_z_Theta_muon;
   TH2D *h2_ExitingP;
   
   double m_EOT;
@@ -147,6 +152,9 @@ public :
     h_miss_A=0;
     h_miss_C=0;
     h_miss_T=0;
+    h_miss_NO_mu=0;
+    h_miss_EM=0;
+  
    
     h_piN=0;
     h_muN=0;
@@ -172,9 +180,11 @@ public :
     h2_E_Theta_N_Max=0;
     h2_E_Theta_P_Max=0; 
 
+    h2_E_z_muon_Max=0;
+    h2_z_Theta_muon_Max=0;
+
     h2_Emiss_Eex=0;
     h2_E_Theta_muon=0;
-    h2_z_Theta_muon=0;
     h2_ExitingP=0;
 
     Tout=0;
@@ -196,6 +206,7 @@ public :
    virtual void    Terminate();
 
    void setEOT(double n);
+   void clear_vector();
    ClassDef(anaSelector,1);
 
 };
@@ -214,11 +225,47 @@ void anaSelector::Init(TTree *tree)
 
   //Set branch addresses. For friends, use friend_name.branch_name  
   fChain=tree;
-
+  fChain->SetBranchStatus("*",0);
+  
+  //fChain->SetBranchStatus("time",0);
+  //fChain->SetBranchStatus("user",0);
+  
+  fChain->SetBranchStatus("runNo",1);
   fChain->SetBranchAddress("runNo",&runNo);
+  fChain->SetBranchStatus("evn",1);
   fChain->SetBranchAddress("evn",&evn);
+  fChain->SetBranchStatus("evn_type",1);
   fChain->SetBranchAddress("evn_type",&evn_type);
 
+  
+  fChain->SetBranchStatus("generated.pid",1);
+  fChain->SetBranchStatus("generated.px",1);
+  fChain->SetBranchStatus("generated.py",1);
+  fChain->SetBranchStatus("generated.pz",1);
+  fChain->SetBranchStatus("generated.vx",1);
+  fChain->SetBranchStatus("generated.vy",1);
+  fChain->SetBranchStatus("generated.vz",1);
+
+  fChain->SetBranchStatus("flux.id",1); 
+  fChain->SetBranchStatus("flux.pid",1); 
+  fChain->SetBranchStatus("flux.mpid",1);
+  fChain->SetBranchStatus("flux.trackE",1); 
+  fChain->SetBranchStatus("flux.avg_x",1);
+  fChain->SetBranchStatus("flux.avg_y",1);
+  fChain->SetBranchStatus("flux.avg_z",1);
+  fChain->SetBranchStatus("flux.px",1);
+  fChain->SetBranchStatus("flux.py",1);
+  fChain->SetBranchStatus("flux.pz",1);
+  fChain->SetBranchStatus("flux.vx",1);
+  fChain->SetBranchStatus("flux.vy",1);
+  fChain->SetBranchStatus("flux.vz",1);
+  fChain->SetBranchStatus("flux.avg_t",1);
+  fChain->SetBranchStatus("flux.nsteps",1);
+  fChain->SetBranchStatus("flux.procID",1);
+  
+  fChain->SetBranchStatus("JPOS_crs.totEdep",1);
+  
+  
   fChain->SetBranchAddress("generated.pid",&gen_pid);
   fChain->SetBranchAddress("generated.px",&gen_px);
   fChain->SetBranchAddress("generated.py",&gen_py);

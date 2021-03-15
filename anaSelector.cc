@@ -45,6 +45,15 @@ double m(double pid){
 }
 
 
+void find_Max_mu(double &EM, double E, double &TM, double T, double &zM, double z,int &IDM, int ID){
+  if (E>EM){
+    EM=E;
+    TM=T;
+    zM=z;
+    IDM=ID;
+  }  
+}
+
 void find_Max(double &EM, double E, double &TM, double T){
   if (E>EM){
     EM=E;
@@ -75,38 +84,42 @@ void anaSelector::SlaveBegin(TTree * /*tree*/)
 
    hGen_E=new TH1D("hGen_E","hGen_E",100,0,20);
    
-   h_miss_A = new TH1D("h_miss_A","h_miss_A",500,0,11000);
-   h_miss_C = new TH1D("h_miss_C","h_miss_C",500,0,11000);
-   h_miss_T = new TH1D("h_miss_T","h_miss_T",500,0,1000);
+   h_miss_A = new TH1D("h_miss_A","h_miss_A",1100,0,11000);
+   h_miss_C = new TH1D("h_miss_C","h_miss_C",1100,0,11000);
+   h_miss_T = new TH1D("h_miss_T","h_miss_T",1100,0,1000);
+   h_miss_NO_mu = new TH1D("h_miss_NO_mu","h_miss_NO_mu",1100,0,11000);
+   h_miss_EM = new TH1D("h_miss_EM","h_miss_EM",1100,0,11000);
   
-   h_piN = new TH1D("h_piN","h_piN",300,-0.5,300);
-   h_muN = new TH1D("h_muN","h_muN",300,-0.5,300);
-   h_eN = new TH1D("h_eN","h_eN",300,-0.5,300);
-   h_gammaN = new TH1D("h_gammaN","h_gammaN",300,-0.5,300);
-   h_nuN = new TH1D("h_nuN","h_nuN",300,-0.5,300);
-   h_NN = new TH1D("h_NN","h_NN",300,-0.5,300);
-   h_PN = new TH1D("h_PN","h_PN",300,-0.5,300);
+   h_piN = new TH1D("h_piN","h_piN",300,-0.5,299.5);
+   h_muN = new TH1D("h_muN","h_muN",50,-0.5,49.5);
+   h_eN = new TH1D("h_eN","h_eN",300,-0.5,299.5);
+   h_gammaN = new TH1D("h_gammaN","h_gammaN",500,-0.5,499.5);
+   h_nuN = new TH1D("h_nuN","h_nuN",50,-0.5,49.5);
+   h_NN = new TH1D("h_NN","h_NN",300,-0.5,299.5);
+   h_PN = new TH1D("h_PN","h_PN",300,-0.5,299.5);
    
-   h_piME = new TH1D("h_piME","h_piME",500,0,11000);
-   h_muME = new TH1D("h_muME","h_muME",500,0,11000);
-   h_eME = new TH1D("h_eME","h_eME",500,0,11000);
-   h_gammaME = new TH1D("h_gammaME","h_gammaME",500,0,11000);
-   h_nuME = new TH1D("h_nuME","h_nuME",500,0,11000);
-   h_NME = new TH1D("h_NME","h_NME",500,0,11000);
-   h_PME = new TH1D("h_PME","h_PME",500,0,11000);
+   h_piME = new TH1D("h_piME","h_piME",1100,0,11000);
+   h_muME = new TH1D("h_muME","h_muME",1100,0,11000);
+   h_eME = new TH1D("h_eME","h_eME",1100,0,11000);
+   h_gammaME = new TH1D("h_gammaME","h_gammaME",1100,0,11000);
+   h_nuME = new TH1D("h_nuME","h_nuME",1100,0,11000);
+   h_NME = new TH1D("h_NME","h_NME",1100,0,11000);
+   h_PME = new TH1D("h_PME","h_PME",1100,0,11000);
    
-   h2_E_Theta_pi_Max = new TH2D("h2_E_Theta_pi_Max","h2_E_Theta_pi_Max",500,0,11000,200,0,180);
-   h2_E_Theta_mu_Max = new TH2D("h2_E_Theta_mu_Max","h2_E_Theta_mu_Max",500,0,11000,200,0,180);
-   h2_E_Theta_e_Max = new TH2D("h2_E_Theta_e_Max","h2_E_Theta_e_Max",500,0,11000,200,0,180);
-   h2_E_Theta_gamma_Max = new TH2D("h2_E_Theta_gamma_Max","h2_E_Theta_gamma_Max",500,0,11000,200,0,180);
-   h2_E_Theta_nu_Max = new TH2D("h2_E_Theta_nu_Max","h2_E_Theta_nu_Max",500,0,11000,200,0,180);
-   h2_E_Theta_N_Max = new TH2D("h2_E_Theta_N_Max","h2_E_Theta_N_Max",500,0,11000,200,0,180);
-   h2_E_Theta_P_Max = new TH2D("h2_E_Theta_P_Max","h2_E_Theta_P_Max",500,0,11000,200,0,180);
+   h2_E_Theta_pi_Max = new TH2D("h2_E_Theta_pi_Max","h2_E_Theta_pi_Max",1100,0,11000,200,0,180);
+   h2_E_Theta_mu_Max = new TH2D("h2_E_Theta_mu_Max","h2_E_Theta_mu_Max",1100,0,11000,200,0,180);
+   h2_E_Theta_e_Max = new TH2D("h2_E_Theta_e_Max","h2_E_Theta_e_Max",1100,0,11000,200,0,180);
+   h2_E_Theta_gamma_Max = new TH2D("h2_E_Theta_gamma_Max","h2_E_Theta_gamma_Max",1100,0,11000,200,0,180);
+   h2_E_Theta_nu_Max = new TH2D("h2_E_Theta_nu_Max","h2_E_Theta_nu_Max",1100,0,11000,200,0,180);
+   h2_E_Theta_N_Max = new TH2D("h2_E_Theta_N_Max","h2_E_Theta_N_Max",1100,0,11000,200,0,180);
+   h2_E_Theta_P_Max = new TH2D("h2_E_Theta_P_Max","h2_E_Theta_P_Max",1100,0,11000,200,0,180);
+   
+   h2_E_z_muon_Max = new TH2D("h2_E_z_muon_Max","h2_E_z_muon_Max",1100,0,11000,400,-200,200);
+   h2_z_Theta_muon_Max = new TH2D("h2_z_Theta_muon_Max","h2_z_Theta_muon_Max",400,-200,200,200,0,180);
    
    h2_Emiss_Eex = new TH2D("h2_Emiss_Eex","h2_Emiss_Eex",500,0,11000,500,0,11000);
-   h2_E_Theta_muon = new TH2D("h2_E_Theta_muon","h2_E_Theta_muon",500,0,11000,200,0,180);
-   h2_z_Theta_muon = new TH2D("h2_z_Theta_muon","h2_z_Theta_muon",400,-200,200,200,0,180);
-   h2_ExitingP = new TH2D("h2_ExitingP","h2_ExitingP",100,-0.5,100,300,-0.5,300);
+   h2_E_Theta_muon = new TH2D("h2_E_Theta_muon","h2_E_Theta_muon",1100,0,11000,200,0,180);
+   h2_ExitingP = new TH2D("h2_ExitingP","h2_ExitingP",100,-0.5,99.5,300,-0.5,299.5);
 
    Tout = new TTree ("Tout","Tout");
    Tout->Branch("runNo",&t_runNo); 
@@ -149,14 +162,17 @@ Bool_t anaSelector::Process(Long64_t entry)
   
   this->GetEntry(entry);
   //check if there is a generated (note gen_PID is a pointer to a vector)
-  if (gen_pid->size()<1) return kTRUE;
-  
+  if (gen_pid->size()<1){
+    this->clear_vector();
+    return kTRUE;
+  }
+
   //just fill a histogram (again, gen_pz is a pointer, so to get the vector content, I use (*gen_pz)
   hGen_E->Fill((*gen_pz)[0]/1000.);
   
+  
   t_runNo=(int)((*runNo)[0]);
   t_evn=(int)((*evn)[0]);
-
 
   double EDEP = 0;
   double Emiss = 0;
@@ -202,14 +218,16 @@ Bool_t anaSelector::Process(Long64_t entry)
   double pi_MaxT = 0;
   double N_MaxT = 0;
   double P_MaxT = 0;
-    
+  
+  double mu_MaxZ =0;
+  int mu_MaxID;
+
   double Et = 0;
   double Ek =0;
   double Theta  = 0;
-  //double pid_Max = 0;
   
  
-  if(Emiss>300){
+  if(Emiss>2000){
     h_miss_C->Fill(Emiss);
 
     
@@ -275,10 +293,10 @@ Bool_t anaSelector::Process(Long64_t entry)
 	if(abs(pID) == 13){ 
 	  mu_count++;
 	  mu_meanE += Et;
-	  find_Max(mu_MaxE,Et,mu_MaxT,Theta);
+	  find_Max_mu(mu_MaxE,Et,mu_MaxT,Theta,mu_MaxZ,fz,mu_MaxID,ID);
 
 	  h2_E_Theta_muon -> Fill(Et,Theta);
-	  h2_z_Theta_muon -> Fill(fz,Theta);
+	 
 	}
 	
 	if(abs(pID) == 14 || abs(pID) == 12){ 
@@ -320,13 +338,17 @@ Bool_t anaSelector::Process(Long64_t entry)
     h_NME -> Fill(N_meanE/N_count);
     h_PME -> Fill(P_meanE/P_count);
     
-    double thresh = 30;
+    double thresh = 5;
 
     if((e_count>0 )&&(e_MaxE >thresh)){
       h2_E_Theta_e_Max->Fill(e_MaxE,e_MaxT);
     }
     if((mu_count>0 )&&(mu_MaxE >thresh)){
       h2_E_Theta_mu_Max->Fill(mu_MaxE,mu_MaxT);
+      if(mu_MaxID!=106){
+	h2_E_z_muon_Max -> Fill(mu_MaxE,mu_MaxZ);
+	h2_z_Theta_muon_Max -> Fill(mu_MaxZ,mu_MaxT);
+      }
     }
     if((nu_count>0 )&&(nu_MaxE >thresh)){  
       h2_E_Theta_nu_Max->Fill(nu_MaxE,nu_MaxT);
@@ -346,40 +368,52 @@ Bool_t anaSelector::Process(Long64_t entry)
     
     //odd exiting neutrinos
     if(nu_count%2!=0){
-      h_miss_T->Fill(nu_count);
       t_string=string(Form("odd neutrinos %i",nu_count));
       Tout->Fill();
     }
 
     //lot of exiting neutrinos
     if(nu_count>7){
-      h_miss_T->Fill(nu_count);
       t_string=string(Form("lot of neutrinos %i",nu_count));
       Tout->Fill();
     }
     
     //soft muon analysis
-    if(mu_MaxE<1000){
-      h2_ExitingP->Fill(11,e_count);
-      h2_ExitingP->Fill(12,nu_count);
-      h2_ExitingP->Fill(14,mu_count);
-      h2_ExitingP->Fill(22,gamma_count);
+    if((mu_count>0)&&(mu_MaxE<1000)){
+      h2_ExitingP->Fill(11.0,e_count);
+      h2_ExitingP->Fill(12.0,nu_count);
+      h2_ExitingP->Fill(14.0,mu_count);
+      h2_ExitingP->Fill(22.0,gamma_count);
     }
     
+    
+    if(mu_count==0){ //0 exiting muon Emiss spectrum 
+      h_miss_NO_mu->Fill(Emiss);
+      if(nu_count==0){ //pure EM Emiss spectrum 
+	h_miss_EM->Fill(Emiss);
+	t_string=string(Form("pure EM, missing E %f",Emiss));
+	Tout->Fill();
+	
+      }
+      else{
+	t_string=string(Form("0 mu, missing E %f",Emiss));
+	Tout->Fill();
+      }
+    }
     
   }//end if function on deposited energy 
 
   //0 muon decay & low deposited energy  
-  if(nu_count==0){
-    if(Emiss<420){
-      h_miss_T->Fill(Emiss);
-      t_string=string(Form("manca %f",Emiss));
-      Tout->Fill();
-    }
+  if((nu_count==0) && (Emiss<420)){
+    h_miss_T->Fill(Emiss);
+    t_string=string(Form("Low missing E %f",Emiss));
+    Tout->Fill();
   }
   
+ 
   
-
+  
+  this->clear_vector();
   return kTRUE;
 }
 
@@ -388,7 +422,10 @@ void anaSelector::SlaveTerminate()
    // The SlaveTerminate() function is called after all entries or objects
    // have been processed. When running with PROOF SlaveTerminate() is called
    // on each slave server.
+  
+  double bias = 1E4;
   hGen_E->Scale(1./m_EOT);
+  
 }
 
 void anaSelector::Terminate()
@@ -398,7 +435,6 @@ void anaSelector::Terminate()
    // the results graphically or save the results to file.
 
   Info("Terminate", "Terminate starts. EOT are: %f", m_EOT);
-
   //A.C. you can also normalize here if you want
   
  
@@ -409,6 +445,75 @@ void anaSelector::Terminate()
 void anaSelector::setEOT(double n) {
 	m_EOT = n;
 }
+
+void anaSelector::clear_vector() {
+  
+  delete runNo;
+  delete evn;
+  delete evn_type;
+  //generated
+  delete gen_pid;
+  delete gen_px;
+  delete gen_py;
+  delete gen_pz;
+  delete gen_vx;
+  delete gen_vy;
+  delete gen_vz;
+  //flux//
+  delete id; 
+  delete pid; 
+  delete mpid;
+  delete trackE;  
+  delete avg_x;
+  delete avg_y;
+  delete avg_z;
+  delete px;
+  delete py;
+  delete pz;
+  delete vx;
+  delete vy;
+  delete vz;
+  delete avg_t;
+  delete nsteps;
+  delete procID;
+  //JPOS_crs//
+  delete totEdep;
+
+  runNo=0;
+  evn=0;
+  evn_type=0;
+  
+  gen_pid=0;
+  gen_px=0;
+  gen_py=0;
+  gen_pz=0;
+  gen_vx=0;
+  gen_vy=0;
+  gen_vz=0;
+  
+  id=0; 
+  pid=0; 
+  mpid=0;
+  trackE=0;  
+  avg_x=0;
+  avg_y=0;
+  avg_z=0;
+  px=0;
+  py=0;
+  pz=0;
+  vx=0;
+  vy=0;
+  vz=0;
+  avg_t=0;
+  nsteps=0;
+  procID=0;
+  
+  totEdep=0;
+}
+
+
+
+
 
 
 

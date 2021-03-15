@@ -109,7 +109,7 @@ int main(int argc, char **argv) {
 
 	if (nproof != 0) {
 		cout << "USING PROOF WITH " << nproof << " WORKERS! " << endl;
-		TProof *proof = TProof::Open(Form("workers=%i", nproof));
+		TProof *proof = TProof::Open(Form("workers=%i,", nproof));
 		proof->Exec("gSystem->Load(\"libRooFit.so\")");
 		proof->Exec("gSystem->Load(\"/project/Gruppo3/fiber7/pbisio/gemc2_6/Bisio_PROOF/libanaSelector.so\")");
 		proof->SetParameter("PROOF_Packetizer", "TPacketizer");
@@ -117,6 +117,7 @@ int main(int argc, char **argv) {
 	}
 	//myFlukaSelector->setEOT(nEOTxfileFluka * nFlukaFiles);
 	myAnaSelector->setEOT(nEOT);
+	//anaChain->Process(myAnaSelector,"stf");
 	anaChain->Process(myAnaSelector);
 
        
