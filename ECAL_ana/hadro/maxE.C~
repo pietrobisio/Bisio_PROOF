@@ -1,0 +1,92 @@
+{
+  TCanvas *c1 = new TCanvas("c1","c1",1200,675);
+  
+  //TFile histo2("hadro_1t499.root");
+  //TFile histo2("hadro_500t999.root");
+  //TFile histo2("hadro_1000t1499.root");
+  TFile histo2("hadro_1500t2000.root");
+
+  
+  TH2D *h2_Emiss_E_e_Max = (TH2D*)histo2.Get("h2_Emiss_E_e_Max");
+  TH2D *h2_Emiss_E_muon_Max = (TH2D*)histo2.Get("h2_Emiss_E_muon_Max");
+  TH2D *h2_Emiss_E_nu_Max = (TH2D*)histo2.Get("h2_Emiss_E_nu_Max");  
+  TH2D *h2_Emiss_E_gamma_Max = (TH2D*)histo2.Get("h2_Emiss_E_gamma_Max");
+  TH2D *h2_Emiss_E_pi_Max = (TH2D*)histo2.Get("h2_Emiss_E_pi_Max");
+  TH2D *h2_Emiss_Ek_N_Max = (TH2D*)histo2.Get("h2_Emiss_Ek_N_Max");
+  TH2D *h2_Emiss_Ek_P_Max = (TH2D*)histo2.Get("h2_Emiss_Ek_P_Max");
+  TH2D *h2_Emiss_E_k_Max = (TH2D*)histo2.Get("h2_Emiss_E_k_Max");
+  TH2D *h2_Emiss_E_k0_Max = (TH2D*)histo2.Get("h2_Emiss_E_k0_Max");
+  TH2D *h2_Emiss_Ek_HB_Max = (TH2D*)histo2.Get("h2_Emiss_Ek_HB_Max");
+ 
+ 
+ 
+  h2_Emiss_E_e_Max->SetMarkerStyle(8);
+  h2_Emiss_E_e_Max->SetMarkerColor(873);
+  h2_Emiss_E_e_Max->Draw();
+  h2_Emiss_E_e_Max->SetTitle("");
+  h2_Emiss_E_e_Max->GetXaxis()->SetTitle("E_miss (MeV)");
+  h2_Emiss_E_e_Max->GetYaxis()->SetTitle("E_p (MeV)");
+  
+  h2_Emiss_E_muon_Max->SetMarkerStyle(8);
+  h2_Emiss_E_muon_Max->SetMarkerColor(kViolet);
+  h2_Emiss_E_muon_Max->Draw("SAME");
+
+  h2_Emiss_E_nu_Max->SetMarkerStyle(8);
+  h2_Emiss_E_nu_Max->SetMarkerColor(390);
+  h2_Emiss_E_nu_Max->Draw("SAME");
+
+  h2_Emiss_E_gamma_Max->SetMarkerStyle(8);
+  h2_Emiss_E_gamma_Max->SetMarkerColor(kGreen);
+  h2_Emiss_E_gamma_Max->Draw("SAME");
+
+  h2_Emiss_E_pi_Max->SetMarkerStyle(8);
+  h2_Emiss_E_pi_Max->SetMarkerColor(kOrange);
+  h2_Emiss_E_pi_Max->Draw("SAME");
+
+  h2_Emiss_Ek_N_Max->SetMarkerStyle(8);
+  h2_Emiss_Ek_N_Max->SetMarkerColor(kBlack);
+  h2_Emiss_Ek_N_Max->Draw("SAME");
+    
+  h2_Emiss_Ek_P_Max->SetMarkerStyle(8);
+  h2_Emiss_Ek_P_Max->SetMarkerColor(kRed);
+  h2_Emiss_Ek_P_Max->Draw("SAME");
+  
+  h2_Emiss_E_k_Max->SetMarkerStyle(8);
+  h2_Emiss_E_k_Max->SetMarkerColor(kCyan);
+  h2_Emiss_E_k_Max->Draw("SAME");
+
+  h2_Emiss_E_k0_Max->SetMarkerStyle(8);
+  h2_Emiss_E_k0_Max->SetMarkerColor(kBlue);
+  h2_Emiss_E_k0_Max->Draw("SAME");
+
+  h2_Emiss_Ek_HB_Max->SetMarkerStyle(8);
+  h2_Emiss_Ek_HB_Max->SetMarkerColor(kGray);
+  h2_Emiss_Ek_HB_Max->Draw("SAME");
+    
+  gStyle->SetOptStat("");
+  c1->SetGridx();
+  c1->SetGridy();
+
+  TF1 *f = new TF1 ("f","x",0,11000);
+  f->SetLineColor(kBlack);
+  f->Draw("SAME");
+  
+
+  TLegend *legend = new TLegend(0.11,0.6,0.3,0.89);
+  legend->AddEntry("h2_Emiss_E_e_Max","e^{#pm}","p");
+  legend->AddEntry("h2_Emiss_E_muon_Max","#mu^{#pm}","p");
+  legend->AddEntry("h2_Emiss_E_nu_Max","#nu","p");
+  legend->AddEntry("h2_Emiss_E_gamma_Max","#gamma","p");
+  legend->AddEntry("h2_Emiss_E_pi_Max","#pi^{#pm}","p");
+  legend->AddEntry("h2_Emiss_Ek_N_Max","N  #bar{N}","p");
+  legend->AddEntry("h2_Emiss_Ek_P_Max","P  #bar{P} ","p");
+  legend->AddEntry("h2_Emiss_E_k_Max","k^{#pm}","p");
+  legend->AddEntry("h2_Emiss_E_k0_Max","k^{0}","p");
+  legend->AddEntry("h2_Emiss_Ek_HB_Max","HB","p");
+  legend->Draw();    
+  
+  //c1->SaveAs("./PDF/3GeV.pdf");
+
+  
+  
+}
