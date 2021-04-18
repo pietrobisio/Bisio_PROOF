@@ -15,6 +15,7 @@
 
 #include <TH1D.h>
 #include <TH2D.h>
+#include <TH3D.h>
 
 // Headers needed by this particular selector
 #include <string>
@@ -63,128 +64,27 @@ public :
   //JPOS_crs//
   vector<double> *totEdep;
  
+  //JPOS_HCAL
+  vector<double> *HCAL_sector; //dovrebbero essere int, se li uso come tali non funziona
+  vector<double> *HCAL_layer;
+  vector<double> *HCAL_channel;
+  vector<double> *HCAL_t0;
+  vector<double> *HCAL_Etot;
+  vector<double> *HCAL_EtotB;
+  vector<double> *HCAL_hit_pos;
 
 
   //histos
   TH1D *hGen_E;
-
-  TH1D *h_miss_A;
-  TH1D *h_miss_C;
-  TH1D *h_miss_T;
-  TH1D *h_miss_NO_mu;
-  TH1D *h_miss_EM;
   
-  TH1D *h_mp;
+  TH1D *h_hit_05;
+  TH1D *h_hit_1;
+  TH1D *h_hit_2;
+  TH1D *h_hit_3;
+  TH1D *h_hit_4;
 
-  TH1D *h_eN;
-  TH1D *h_muN;
-  TH1D *h_nuN;
-  TH1D *h_gammaN;
-  TH1D *h_piN;
-  TH1D *h_pi0N;  
-  TH1D *h_NN;
-  TH1D *h_aNN;
-  TH1D *h_PN;
-  TH1D *h_aPN;
-  TH1D *h_OC;
-  TH1D *h_kN;
-  TH1D *h_k0lN;
-  TH1D *h_k0sN;
-  TH1D *h_lambdaN;
-  TH1D *h_xiN;
-  TH1D *h_xi0N;
-  TH1D *h_sigma_mN;
-  TH1D *h_sigma_pN;  
-  TH1D *h_nuclN;
+  TH2D *h2;
   
-  TH1D *h_eME;
-  TH1D *h_muME;
-  TH1D *h_nuME;
-  TH1D *h_gammaME;
-  TH1D *h_piME;
-  TH1D *h_pi0ME;  
-  TH1D *h_NME;
-  TH1D *h_aNME;
-  TH1D *h_PME;
-  TH1D *h_aPME;
-  TH1D *h_kME;
-  TH1D *h_k0lME;
-  TH1D *h_k0sME;
-  TH1D *h_lambdaME;
-  TH1D *h_xiME;
-  TH1D *h_xi0ME;
-  TH1D *h_sigma_mME;
-  TH1D *h_sigma_pME;
-  TH1D *h_nuclME;
-
-  TH1D *h_e_allE;
-  TH1D *h_mu_allE;
-  TH1D *h_nu_allE;
-  TH1D *h_gamma_allE;
-  TH1D *h_pi_allE;
-  TH1D *h_pi0_allE;  
-  TH1D *h_N_allE;
-  TH1D *h_aN_allE;
-  TH1D *h_P_allE;
-  TH1D *h_aP_allE;
-  TH1D *h_k_allE;
-  TH1D *h_k0l_allE;
-  TH1D *h_k0s_allE;
-  TH1D *h_lambda_allE;
-  TH1D *h_xi_allE;
-  TH1D *h_xi0_allE;
-  TH1D *h_sigma_m_allE;
-  TH1D *h_sigma_p_allE;
-  TH1D *h_nucl_allE;
-
-  TH2D *h2_E_Theta_e_Max;
-  TH2D *h2_E_Theta_mu_Max;
-  TH2D *h2_E_Theta_nu_Max;
-  TH2D *h2_E_Theta_gamma_Max;
-  TH2D *h2_E_Theta_pi_Max;
-  TH2D *h2_E_Theta_pi0_Max;  
-  TH2D *h2_E_Theta_N_Max;
-  TH2D *h2_E_Theta_aN_Max;
-  TH2D *h2_E_Theta_P_Max;
-  TH2D *h2_E_Theta_aP_Max;
-  TH2D *h2_E_Theta_k_Max;
-  TH2D *h2_E_Theta_k0l_Max;
-  TH2D *h2_E_Theta_k0s_Max;
-  TH2D *h2_E_Theta_lambda_Max;
-  TH2D *h2_E_Theta_xi_Max;
-  TH2D *h2_E_Theta_xi0_Max;
-  TH2D *h2_E_Theta_sigma_m_Max;
-  TH2D *h2_E_Theta_sigma_p_Max;
-  TH2D *h2_E_Theta_nucl_Max;
-  
-  TH2D *h2_E_z_muon_Max;
-  TH2D *h2_z_Theta_muon_Max;
-  TH2D *h2_E_Theta_muon;
-  TH2D *h2_ExitingP;
-  
-  TH2D *h2_E_Theta_mu_Max_Exit12;
-  TH2D *h2_E_Theta_mu_Max_Exit34;
-  TH2D *h2_E_Theta_mu_Max_Exit56;
-  TH2D *h2_E_Theta_mu_Max_ExitM;
-
-  TH2D *h2_Emiss_Eex;
-  TH2D *h2_Emiss_E_tot_Max; 
-
-  TH2D *h2_Emiss_E_e_Max;
-  TH2D *h2_Emiss_E_muon_Max;
-  TH2D *h2_Emiss_E_nu_Max;
-  TH2D *h2_Emiss_E_gamma_Max;
-  TH2D *h2_Emiss_E_pi_Max;
-  TH2D *h2_Emiss_Ek_N_Max;
-  TH2D *h2_Emiss_Ek_P_Max;
-  TH2D *h2_Emiss_E_k_Max; 
-  TH2D *h2_Emiss_E_k0_Max; 
-  TH2D *h2_Emiss_Ek_HB_Max; 
-
-
-  TH1D *h_dist;
-
- 
   double m_EOT;
 
   TTree *Tout;
@@ -192,7 +92,7 @@ public :
   string t_string;
 
   anaSelector(TTree * /*tree*/ =0) { 
- 
+    
     //INIT TO ZERO ALL POINTERS
     runNo=0;
     evn=0;
@@ -225,126 +125,25 @@ public :
 
     totEdep=0;
 
+    HCAL_sector=0;
+    HCAL_layer=0;
+    HCAL_channel=0;
+    HCAL_t0=0;
+    HCAL_Etot=0;
+    HCAL_EtotB=0;
+    HCAL_hit_pos=0;
+
+    
     //histos
     hGen_E=0;
     
-    h_miss_A=0;
-    h_miss_C=0;
-    h_miss_T=0;
-    h_miss_NO_mu=0;
-    h_miss_EM=0;
-  
-    h_mp=0;
-   
-    h_eN=0;
-    h_muN=0;
-    h_nuN=0;
-    h_gammaN=0;
-    h_piN=0;
-    h_pi0N=0;  
-    h_NN=0;
-    h_aNN=0;
-    h_PN=0;
-    h_aPN=0;
-    h_OC=0;
-    h_kN=0;
-    h_k0lN=0;
-    h_k0sN=0;
-    h_lambdaN=0;
-    h_xiN=0;
-    h_xi0N=0;
-    h_sigma_mN=0;
-    h_sigma_pN=0;
-    h_nuclN=0;
-
-    h_eME=0;
-    h_muME=0;
-    h_nuME=0;
-    h_gammaME=0;
-    h_piME=0;
-    h_pi0ME=0;  
-    h_NME=0;
-    h_aNME=0;
-    h_PME=0;
-    h_aPME=0;
-    h_kME=0;
-    h_k0lME=0;
-    h_k0sME=0;
-    h_lambdaME=0;
-    h_xiME=0;
-    h_xi0ME=0;
-    h_sigma_mME=0;
-    h_sigma_pME=0;
-    h_nuclME=0;
-
-    h_e_allE=0;
-    h_mu_allE=0;
-    h_nu_allE=0;
-    h_gamma_allE=0;
-    h_pi_allE=0;
-    h_pi0_allE=0;  
-    h_N_allE=0;
-    h_aN_allE=0;
-    h_P_allE=0;
-    h_aP_allE=0;
-    h_k_allE=0;
-    h_k0l_allE=0;
-    h_k0s_allE=0;
-    h_lambda_allE=0;
-    h_xi_allE=0;
-    h_xi0_allE=0;
-    h_sigma_m_allE=0;
-    h_sigma_p_allE=0;
-    h_nucl_allE=0;
+    h_hit_05=0;
+    h_hit_1=0;
+    h_hit_2=0;
+    h_hit_3=0;
+    h_hit_4=0;
     
-    h2_E_Theta_e_Max=0;
-    h2_E_Theta_mu_Max=0;
-    h2_E_Theta_nu_Max=0;
-    h2_E_Theta_gamma_Max=0;
-    h2_E_Theta_pi_Max=0;
-    h2_E_Theta_pi0_Max=0;  
-    h2_E_Theta_N_Max=0;
-    h2_E_Theta_aN_Max=0;
-    h2_E_Theta_P_Max=0;
-    h2_E_Theta_aP_Max=0;
-    h2_E_Theta_k_Max=0;
-    h2_E_Theta_k0l_Max=0;
-    h2_E_Theta_k0s_Max=0;
-    h2_E_Theta_lambda_Max=0;
-    h2_E_Theta_xi_Max=0;
-    h2_E_Theta_xi0_Max=0;
-    h2_E_Theta_sigma_m_Max=0;
-    h2_E_Theta_sigma_p_Max=0;
-    h2_E_Theta_nucl_Max=0;
-    
-    h2_E_z_muon_Max=0;
-    h2_z_Theta_muon_Max=0;
-    h2_E_Theta_muon=0;
-    h2_ExitingP=0;
-    
-    h2_E_Theta_mu_Max_Exit12=0;
-    h2_E_Theta_mu_Max_Exit34=0;
-    h2_E_Theta_mu_Max_Exit56=0;
-    h2_E_Theta_mu_Max_ExitM=0;
-
-    h2_Emiss_Eex=0;
-    h2_Emiss_E_tot_Max=0;
-   
-    h2_Emiss_E_e_Max=0;
-    h2_Emiss_E_muon_Max=0;
-    h2_Emiss_E_nu_Max=0;
-    h2_Emiss_E_gamma_Max=0;
-    h2_Emiss_E_pi_Max=0;
-    h2_Emiss_Ek_N_Max=0;
-    h2_Emiss_Ek_P_Max=0;
-    h2_Emiss_E_k_Max=0; 
-    h2_Emiss_E_k0_Max=0; 
-    h2_Emiss_Ek_HB_Max=0; 
-     
-    
-    
-    h_dist=0;
-     
+    h2=0;
 
     Tout=0;
 
@@ -423,8 +222,16 @@ void anaSelector::Init(TTree *tree)
   fChain->SetBranchStatus("flux.procID",1);
   
   fChain->SetBranchStatus("JPOS_crs.totEdep",1);
-  
-  
+
+  fChain->SetBranchStatus("JPOS_HCAL.sector",1);
+  fChain->SetBranchStatus("JPOS_HCAL.layer",1);
+  fChain->SetBranchStatus("JPOS_HCAL.channel",1);
+  fChain->SetBranchStatus("JPOS_HCAL.t0",1);
+  fChain->SetBranchStatus("JPOS_HCAL.Etot",1);
+  fChain->SetBranchStatus("JPOS_HCAL.EtotB",1);
+  fChain->SetBranchStatus("JPOS_HCAL.hit_pos",1);
+
+   
   fChain->SetBranchAddress("generated.pid",&gen_pid);
   fChain->SetBranchAddress("generated.px",&gen_px);
   fChain->SetBranchAddress("generated.py",&gen_py);
@@ -451,6 +258,16 @@ void anaSelector::Init(TTree *tree)
   fChain->SetBranchAddress("flux.procID",&procID);
 
   fChain->SetBranchAddress("JPOS_crs.totEdep",&totEdep);
+
+  fChain->SetBranchAddress("JPOS_HCAL.sector",&HCAL_sector);
+  fChain->SetBranchAddress("JPOS_HCAL.layer",&HCAL_layer);
+  fChain->SetBranchAddress("JPOS_HCAL.channel",&HCAL_channel);
+  fChain->SetBranchAddress("JPOS_HCAL.t0",&HCAL_t0);
+  fChain->SetBranchAddress("JPOS_HCAL.Etot",&HCAL_Etot);
+  fChain->SetBranchAddress("JPOS_HCAL.EtotB",&HCAL_EtotB);
+  fChain->SetBranchAddress("JPOS_HCAL.hit_pos",&HCAL_hit_pos);
+
+
 
 }
 

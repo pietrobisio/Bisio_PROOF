@@ -64,6 +64,7 @@ int main(int argc, char **argv) {
 	TChain *anaChain_generated = new TChain("generated");
 	TChain *anaChain_flux = new TChain("flux");	
 	TChain *anaChain_JPOS_crs = new TChain("JPOS_crs");
+	TChain *anaChain_JPOS_HCAL = new TChain("JPOS_HCAL");
 
 	int nFiles;
 	vector<string> good_fileNames;
@@ -97,10 +98,12 @@ int main(int argc, char **argv) {
 	  anaChain_generated->Add(good_fileNames[ii].c_str());
 	  anaChain_flux->     Add(good_fileNames[ii].c_str());
 	  anaChain_JPOS_crs-> Add(good_fileNames[ii].c_str());
+	  anaChain_JPOS_HCAL-> Add(good_fileNames[ii].c_str());
 	}
 	anaChain->AddFriend(anaChain_generated);
 	anaChain->AddFriend(anaChain_flux);
 	anaChain->AddFriend(anaChain_JPOS_crs);
+	anaChain->AddFriend(anaChain_JPOS_HCAL);
 	
 
 	
